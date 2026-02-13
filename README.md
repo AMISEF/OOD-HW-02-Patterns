@@ -76,7 +76,7 @@ ticket_system/
 
 bash
 
-python main.py
+```python main.py```
 
 ---
 بخش ۴ — تحلیل شیءگرا (SOLID + PLK + CRP)
