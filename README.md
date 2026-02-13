@@ -50,7 +50,9 @@
 ## بخش ۲ — Class Diagram UML
 
 <img width="2811" height="794" alt="UML-Ticket" src="https://github.com/user-attachments/assets/845f3629-ab46-490f-b9cf-ed2a8bad6a98" />
+
 ---
+
 بخش ۳ — اعمال الگو
 ساختار فایل‌های پروژه:
 
