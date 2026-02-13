@@ -50,4 +50,58 @@
 ## بخش ۲ — Class Diagram UML
 
 <img width="2811" height="794" alt="UML-Ticket" src="https://github.com/user-attachments/assets/845f3629-ab46-490f-b9cf-ed2a8bad6a98" />
+---
+بخش ۳ — اعمال الگو
+ساختار فایل‌های پروژه:
 
+ticket_system/
+
+│
+
+├── main.py ← نقطه ورود + مثال‌ها
+
+├── ticket.py ← مدل داده‌ی تیکت
+
+├── states.py ← الگوی State (پنج وضعیت)
+
+├── strategies.py ← الگوی Strategy (ارجاع + پاسخ)
+
+├── factory.py ← الگوی Factory (ساخت تیکت)
+
+├── ticket_service.py ← سرویس اصلی هماهنگ‌کننده
+
+└── logger.py ← ثبت رویداد
+
+نحوه‌ی اجرا:
+
+bash
+
+python main.py
+
+---
+بخش ۴ — تحلیل شیءگرا (SOLID + PLK + CRP)
+SRP — Single Responsibility Principle
+قبل: متد handle() همه‌ی منطق (بررسی کانال، ارجاع، پاسخ، تغییر وضعیت، لاگ) را داشت.
+
+بعد: هر کلاس مسئولیت واحدی دارد؛ NewState فقط دریافت، BugResponseStrategy فقط پاسخ باگ، TicketLogger فقط لاگ.
+
+OCP — Open/Closed Principle
+قبل: افزودن نوع تیکت جدید یا وضعیت جدید نیاز به تغییر if/else داخل handle() داشت.
+
+بعد: می‌توان کلاس وضعیت یا استراتژی جدید اضافه کرد بدون اینکه کد موجود لمس شود — سیستم برای توسعه باز و برای تغییر بسته است.
+
+LSP — Liskov Substitution Principle
+بعد: تمام زیرکلاس‌های TicketState و AssignmentStrategy می‌توانند بدون تغییر در TicketService جایگزین یکدیگر شوند، زیرا قرارداد کلاس پایه را رعایت می‌کنند.
+
+DIP — Dependency Inversion Principle
+قبل: TicketService مستقیماً به پیاده‌سازی‌های مشخص وابسته بود.
+
+بعد: TicketService به abstractions (AssignmentStrategy, ResponseStrategy) وابسته است؛ پیاده‌سازی مشخص از بیرون تزریق می‌شود (Dependency Injection از طریق TicketFactory).
+
+Law of Demeter (LOD / PLK)
+قبل: handle() مستقیماً به فیلدهای عمومی ticket.status و ticket.type دسترسی داشت.
+
+بعد: دسترسی از طریق متدهای get_state() و set_state() انجام می‌شود؛ TicketService با لایه‌ی انتزاعی کار می‌کند نه با جزئیات داخلی.
+
+CRP — Common Reuse Principle
+بعد: کلاس‌های مرتبط (مثلاً همه‌ی استراتژی‌های پاسخ) در یک ماژول (strategies.py) هستند؛ تغییر در منطق پاسخ‌دهی تنها این فایل را درگیر می‌کند، نه کل سیستم.
