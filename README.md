@@ -82,28 +82,34 @@ bash
 
 ---
 ## بخش ۴ — تحلیل شیءگرا (SOLID + PLK + CRP)
-** SRP  **
+**SRP**
+
 قبل: متد handle() همه‌ی منطق (بررسی کانال، ارجاع، پاسخ، تغییر وضعیت، لاگ) را داشت.
 
 بعد: هر کلاس مسئولیت واحدی دارد؛ NewState فقط دریافت، BugResponseStrategy فقط پاسخ باگ، TicketLogger فقط لاگ.
 
-** OCP **
+**OCP**
+
 قبل: افزودن نوع تیکت جدید یا وضعیت جدید نیاز به تغییر if/else داخل handle() داشت.
 
 بعد: می‌توان کلاس وضعیت یا استراتژی جدید اضافه کرد بدون اینکه کد موجود لمس شود — سیستم برای توسعه باز و برای تغییر بسته است.
 
-** LSP **
+**LSP**
+
 بعد: تمام زیرکلاس‌های TicketState و AssignmentStrategy می‌توانند بدون تغییر در TicketService جایگزین یکدیگر شوند، زیرا قرارداد کلاس پایه را رعایت می‌کنند.
 
-** DIP — Dependency Inversion Principle **
+**DIP**
+
 قبل: TicketService مستقیماً به پیاده‌سازی‌های مشخص وابسته بود.
 
 بعد: TicketService به abstractions (AssignmentStrategy, ResponseStrategy) وابسته است؛ پیاده‌سازی مشخص از بیرون تزریق می‌شود (Dependency Injection از طریق TicketFactory).
 
-** LOD / PLK ** 
+**LOD / PLK** 
+
 قبل: handle() مستقیماً به فیلدهای عمومی ticket.status و ticket.type دسترسی داشت.
 
 بعد: دسترسی از طریق متدهای get_state() و set_state() انجام می‌شود؛ TicketService با لایه‌ی انتزاعی کار می‌کند نه با جزئیات داخلی.
 
-** CRP **
+**CRP**
+
 بعد: کلاس‌های مرتبط (مثلاً همه‌ی استراتژی‌های پاسخ) در یک ماژول (strategies.py) هستند؛ تغییر در منطق پاسخ‌دهی تنها این فایل را درگیر می‌کند، نه کل سیستم.
