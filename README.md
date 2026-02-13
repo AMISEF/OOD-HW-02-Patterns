@@ -43,3 +43,11 @@
 **روش اعمال:**
 - کلاس `TicketFactory` با متد استاتیک `create(id, channel, type)` تعریف می‌شود.
 - این متد شیء `Ticket` به همراه استراتژی‌های مناسب آن را برمی‌گرداند.
+
+
+---
+
+## بخش ۲ — Class Diagram
+
+<img width="2811" height="794" alt="UML-Ticket" src="https://github.com/user-attachments/assets/845f3629-ab46-490f-b9cf-ed2a8bad6a98" />
+
